@@ -5,8 +5,10 @@ There are two types of variable in Kotlin.
 
 #### String Templates
 String Templates is used to convert the data stored in the variable into String. This expressions always start with a dollar sign $.
-`println("There are $customers customers")
-//There are 10 customers`
+```
+println("There are $customers customers")
+//There are 10 customers
+```
 
 ### Data Types
 ##### In Kotlin, everything is an object. Each type has it's own member functions and properties.
