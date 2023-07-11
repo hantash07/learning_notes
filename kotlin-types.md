@@ -32,7 +32,7 @@ Kotlin has the ability to infer or conclude the type of the variable. When a var
   val oneByte: Byte = 1
   ```
 
-- Unlike some other languages, there are no implicit widening conversions for numbers in Kotlin. For example, a function with a Double parameter can be called only on Double values, but not Float, Int, or other numeric values:
+- Unlike some other languages, there are no implicit conversions for numbers in Kotlin. For example, a function with a Double parameter can be called only on Double values, but not Float, Int, or other numeric values:
 
   ```
   fun main() {
@@ -159,4 +159,3 @@ If the cast is not possible the cast operator throws an exceptions.
 
 ##### Safe Cast (as?)
 To avoid exceptions, use the safe cast operator `as?`, which returns `null` on failure.
-
