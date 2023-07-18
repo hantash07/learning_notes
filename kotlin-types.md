@@ -143,7 +143,7 @@ Kotlin also has classes that represent arrays of primitive types without boxing 
 #### Type Check and Cast
 The operator `is` or `!is` is used to check the type of an object. 
 
-`is` is used for smart cast. Ssmart casts can work only when the compiler can guarantee that the variable won't change between the check and the usage.
+`is` is used for smart cast. Smart casts can work only when the compiler can guarantee that the variable won't change between the check and the usage.
 ```
 fun demo(x: Any) {
     if (x is String) {
