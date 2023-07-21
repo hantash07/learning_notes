@@ -63,3 +63,36 @@
 - Properties
 - Nested and inner classes
 - Object Declarationns
+
+
+### Inheritance
+
+- All classes in kotlin are derived from a common superclass `any`.
+- Any has three methods `equals()`, `hashCode()`, and `toString()`. Thus, these methods are defined for all Kotlin classes.
+- By default, Kotlin classes are final they can't be inherited. To make a class inheritable, mark it with the `open` keyword.
+- If the derived class has a primary constructor, the base class must be initialized first in that sub class's primary constructor.
+- If the derived class has no primary constructor, each of its secondary constructor has to initialize the base class constructor by using the `super` keyword. In this case the derived class secondary constructor can call different constructors of a base class.
+  ```
+  class MyView : View {
+    constructor(ctx: Context) : super(ctx)
+
+    constructor(ctx: Context, attrs: AttributeSet) : super(ctx, attrs)
+  }
+  ```
+
+#### Overriding methods
+- Kotlin requires explicit modifier for all overridable members or functionns.
+- In order, to override a function from base class, that function must be `open` and the derived class must explicitly define the override modifier.
+- If the modifier is not define explicitly the compiler will complain.
+- Declaring a method with same signature is not allowed in sub class or derived class.
+- Final class is a class wothout `open` modifier.
+- The `open` modifier has no effect when added to members of a final class.
+- A member marked with `override` is a `open` itself. So it may be override in to further subclasses. In order to stop further re-overriding use `final` keyword.
+  ```
+  open class Rectangle() : Shape() {
+    final override fun draw() { /*...*/ }
+  }
+  ```
+
+#### Override Properties
+- 
