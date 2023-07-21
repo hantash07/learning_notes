@@ -19,6 +19,7 @@
 - The primary constructor cannot contain any code. Initialization code can be placed in initializer blocks prefixed with the `init` keyword. It can only contain parameters,
 - During the initialization of an instance, the initializer blocks `init` are executed in the same order as they appear in the class body.
 - Primary constructor parameters can be used in the initializer blocks. They can also be used in property initializers declared in the class body.
+- In kotlin, we have init block it is used to further perform initializations or add any code before the program starts.
 - We can also assign a defaulft value into the constructor's parameters.
 - Properties declared in the primary constructor can be mutable (var) or read-only (val).
 - If the constructor has annotations or visibility modifiers, the `constructor` keyword is required and the modifiers go before it.
