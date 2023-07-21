@@ -81,7 +81,7 @@
   ```
 
 #### Overriding methods
-- Kotlin requires explicit modifier for all overridable members or functionns.
+- Kotlin requires explicit modifier for all overridable members.
 - In order, to override a function from base class, that function must be `open` and the derived class must explicitly define the override modifier.
 - If the modifier is not define explicitly the compiler will complain.
 - Declaring a method with same signature is not allowed in sub class or derived class.
