@@ -68,7 +68,7 @@
 ### Inheritance
 
 - All classes in kotlin are derived from a common superclass `any`.
-- Any has three methods `equals()`, `hashCode()`, and `toString()`. Thus, these methods are defined for all Kotlin classes.
+- A class `any` has three methods `equals()`, `hashCode()`, and `toString()`. Thus, these methods are defined for all Kotlin classes.
 - By default, Kotlin classes are final they can't be inherited. To make a class inheritable, mark it with the `open` keyword.
 - If the derived class has a primary constructor, the base class must be initialized first in that sub class's primary constructor.
 - If the derived class has no primary constructor, each of its secondary constructor has to initialize the base class constructor by using the `super` keyword. In this case the derived class secondary constructor can call different constructors of a base class.
@@ -95,4 +95,44 @@
   ```
 
 #### Override Properties
-- 
+- The overriding also works with properties the same way it works with the methods.
+- Properties declared on a superclass that are then redeclared on a derived class must be prefaced with `override`
+  ```
+  open class Shape {
+    open val vertexCount: Int = 0
+  }
+
+  class Rectangle : Shape() {
+    override val vertexCount = 4
+  }
+  ```
+- You can also override a `val` property with a `var` property, but not vice versa. This is allowed because a `val` property essentially declares a get method, and overriding it as a var additionally declares a set method in the derived class.
+- Note that you can use the override keyword as part of the property declaration in a primary constructor.
+
+- During the construction of a new instance of a derived class, the base class initialization is done as the first step which means that it happens before the initialization logic of the derived class is run.
+-  When the base class constructor is executed, the properties declared or overridden in the derived class have not yet been initialized.
+
+#### Calling the superclass implementation
+- A derived class can call it's super class members by using `super` keyword.
+- If a derived class has a inner class, and that inner class wants to access the members of supper class, then a `super` keyword with superclass name is used like `super@superClassName`
+
+#### Overriding rules
+- If a class inherit multiple implementation of a same member, the derived class must override the member and provide the same implementationn. Mutiple implementation means a class derived from a class and implement an interface.
+- If a class inherit multiple implementation of a same member, in order to class the base class override method is to define the class name with `super` keyword `super<ClassName>.member`. 
+  ```
+  open class Rectangle {
+    open fun draw() { /* ... */ }
+  }
+
+  interface Polygon {
+      fun draw() { /* ... */ } // interface members are 'open' by default
+  }
+
+  class Square() : Rectangle(), Polygon {
+    // The compiler requires draw() to be overridden:
+    override fun draw() {
+        super<Rectangle>.draw() // call to Rectangle.draw()
+        super<Polygon>.draw() // call to Polygon.draw()
+    }
+  }
+  ```
