@@ -136,3 +136,86 @@
     }
   }
   ```
+  
+### Properties
+- The full syntax for declaring a property is as follows.
+- The initializer, getter, and setter are optional. The property type is optional if it can be inferred from the initializer or the getter's return type
+  ```
+  var <propertyName>[: <PropertyType>] [= <property_initializer>]
+    [<getter>]
+    [<setter>]
+  ```
+- The full syntax of a read-only property declaration differs from a mutable one in two ways: it starts with val instead of var and does not allow a setter
+  ```
+  val simple: Int? // has type Int, default getter, must be initialized in constructor
+  val inferredType = 1 // has type Int and a default getter
+  ```
+- You can definne a custom controller or accessors for a property. If you define a custom getter, it will be called everytime you access the property. Same case with setter. If you define custom setter, it will be called everytime you assign a value into it.
+  Customm Getter:
+  ```
+  class Rectangle(val width: Int, val height: Int) {
+    val area: Int // property type is optional since it can be inferred from the getter's return type
+        get() = this.width * this.height
+  }
+  ```
+  
+  You can omit the property type if it can be inferred from the getter:
+  ```
+  val area get() = this.width * this.height
+  ```
+
+  Custom Setter:
+  ```
+  var stringRepresentation: String
+    get() = this.toString()
+    set(value) {
+        setDataFromString(value) // parses the string and assigns values to other properties
+    }
+  ```
+    - By convention, the name of the setter parameter is value, but you can choose a different name if you prefer.
+  
+  - If you want to add annotate and or change the visibility of the property controller, you don't need to change its implementation.
+  ```
+  var setterVisibility: String = "abc"
+    private set // the setter is private and has the default implementation
+
+  var setterWithAnnotation: Any? = null
+    @Inject set // annotate the setter with Inject
+  ```
+#### Backing Field
+- In kotlin, backing field is used in order to avoid recursive call on the property which can throw stack overflow exception.
+- Kotlin generate backing field, when the property uses its default implementations.
+  ```
+  class User{
+    var firstName : String  //backing field generated 
+        get() = firstName
+        set(value) {firstName = value}
+    
+   var lastName : String   //backing field generated
+        get() = lastName
+        set(value) {lastName = value}
+  
+   val name : String                         //no backing field generated
+        get() = "{$firstName $lastName}"    
+   
+   var address : String = "XYZ"           //^because there is no default
+                                            //^implementation of an accessor
+                                     
+  }
+  ```
+- In Kotlin, the above code snippet will throw StackOverflow because when we access or set property `firstName` or `lastName` the default accessor will be called. So in Kotlin user.firstName = "value” is same as Java’s user.setFirstName("value").
+- So when `set(value) {firstName = "value"}` is called, then a recursive call happens and compiler throws a StackOverflow exception because we are calling setter inside the setter.
+- Solution to this problem is to user backing fields. In Kotlin, a backing field can be accessed using 'field' keyword inside accessors.
+  ```
+  class User{
+    var firstName : String  
+        get() = field
+        set(value) {field = value}
+    
+   var lastName : String  
+        get() = field
+        set(value) {field = value}
+ 
+                                     
+  }
+  ```
